@@ -18,7 +18,7 @@ source:
       then: patches/drop_iyt.patch
 
 build:
-  number: 1
+  number: 2
   skip: match(python, "<3.10") or python_impl == 'pypy'
   script:
     env:
@@ -32,13 +32,11 @@ build:
 requirements:
   build:
     - if: build_platform != target_platform
-      then: cython <3.1
-    - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
-    - if: build_platform != target_platform
-      then: numpy
+      then:
+        - cython <3.1
+        - python
+        - cross-python_${{ target_platform }}
+        - numpy
     - if: linux
       then: libgomp
     - if: build_platform != target_platform
